@@ -88,10 +88,17 @@ def http_server(server_class=HTTPServer, handler_class=HttpHandler):
 
 if __name__ == '__main__':
     server_thread = threading.Thread(target=echo_server, args=(HOST, SOCKET_PORT), daemon=True)
-    http_thread = threading.Thread(target=http_server, daemon=True)
     server_thread.start()
-    http_thread.start()
-    server_thread.join()
-    http_thread.join()
+    
+    try:
+        http_server()
+    except KeyboardInterrupt:
+        print("\nСервер зупинено через Ctrl+C")
+
+    # http_thread = threading.Thread(target=http_server, daemon=True)
+    
+    # http_thread.start()
+    # server_thread.join()
+    # http_thread.join()
 
 
